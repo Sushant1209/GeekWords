@@ -45,6 +45,9 @@ async function renderData() {
     animateCount(totalSpan, totalCount);
     animateCount(authorSpan, authorCount);
     animateCount(improvementSpan, improvementCount);
+    
+    // Automatically scroll articles-container
+    autoScrollArticlesContainer();
 }
 
 function animateCount(element, count) {
@@ -60,6 +63,22 @@ function animateCount(element, count) {
         }
         element.textContent = currentCount;
     }, 10);
+}
+
+function autoScrollArticlesContainer() {
+    const articlesContainer = document.getElementById('articles-container');
+    const scrollSpeed = 1; // Adjust scroll speed as needed
+
+    const scrollInterval = setInterval(() => {
+        articlesContainer.scrollTop += scrollSpeed;
+    }, 50); // Adjust scroll interval as needed
+
+    // Stop scrolling when reaching the bottom of the container
+    articlesContainer.addEventListener('scroll', () => {
+        if (articlesContainer.scrollHeight - articlesContainer.scrollTop === articlesContainer.clientHeight) {
+            clearInterval(scrollInterval);
+        }
+    });
 }
 
 renderData();
