@@ -224,3 +224,30 @@ p {
         background-position: 100% 0;
     }
 }
+
+/* Updated styles for responsiveness */
+@media only screen and (max-width: 600px) {
+    body {
+        margin: 0;
+        /* Adjusted margin */
+    }
+
+    .content-container {
+        flex-direction: column;
+        margin: 0;
+        /* Adjusted margin */
+    }
+
+    .left-container,
+    .right-container {
+        width: 100%;
+        padding: 10px;
+        /* Added padding for better spacing */
+    }
+}
+
+/* Updated smoky-background for better visibility */
+.smoky-background {
+    opacity: 0.5;
+    /* Increased opacity to make smoke effect more visible */
+}
