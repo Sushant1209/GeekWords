@@ -8,7 +8,6 @@ body {
     min-height: 100vh;
     background-color: #e0ffff;
     font-family: Arial, sans-serif;
-    overflow: hidden;
     perspective: 1000px;
 }
 
