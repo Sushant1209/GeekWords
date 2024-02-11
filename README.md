@@ -12,3 +12,4 @@
 
 - **Eliminated barriers for viewers** by providing seamless access to my articles.
 - Demonstrated proficiency in **web scraping**, **data management**, and **deployment**.
+- **Developed a custom API** for retrieving article data, enhancing accessibility and usability.
