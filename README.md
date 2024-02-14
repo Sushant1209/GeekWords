@@ -1,7 +1,5 @@
 # GeekWord
 
-*A concise and memorable title that reflects the project’s purpose.*
-
 ## Project Description:
 
 - Developed an automated system to track and display my GeeksforGeeks articles.
