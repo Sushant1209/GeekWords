@@ -1,4 +1,4 @@
-const apiUrl = 'https://script.google.com/macros/s/AKfycbzqgvh8Vgm8z9wGP2V5-tSfRY7er4gNPDAiB_l3eAOYYfHkbgb5MdxhA1EKbMyEVayE9A/exec';
+const apiUrl = 'https://gfgarticleapi.azurewebsites.net/article'; // Replace 'https://your-new-api-url.com' with your actual API URL
 
 async function fetchData() {
     try {
@@ -13,12 +13,12 @@ async function fetchData() {
 
 async function renderData() {
     const jsonData = await fetchData();
-    if (!jsonData || !jsonData.data) return;
+    if (!jsonData) return;
 
     const articlesContainer = document.getElementById('articles-container');
     articlesContainer.innerHTML = '';
 
-    jsonData.data.forEach((item, index) => {
+    jsonData.forEach((item, index) => {
         const section = document.createElement('div');
         section.classList.add('section');
         section.innerHTML = `
@@ -34,9 +34,9 @@ async function renderData() {
     note.textContent = '*Stay tuned for even more insightful articles! New additions will automatically appear at the top of this section...*';
     articlesContainer.appendChild(note);
 
-    const totalCount = jsonData.data.length;
-    const authorCount = jsonData.data.filter(item => item.Article_Type === 'Author').length;
-    const improvementCount = jsonData.data.filter(item => item.Article_Type === 'Added Improvement in existing Article').length;
+    const totalCount = jsonData.length;
+    const authorCount = jsonData.filter(item => item.Article_Type === 'Author').length;
+    const improvementCount = jsonData.filter(item => item.Article_Type === 'Added Improvement in existing Article').length;
 
     const totalSpan = document.getElementById('total-count');
     const authorSpan = document.getElementById('author-count');
