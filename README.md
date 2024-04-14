@@ -2,7 +2,11 @@
 
 ## **Project Overview**
 
-[![GeekWords](https://img.youtube.com/vi/sTSZtdAkqwg/0.jpg)](https://www.youtube.com/watch?v=sTSZtdAkqwg)
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=sTSZtdAkqwg">
+    <img src="https://img.youtube.com/vi/sTSZtdAkqwg/0.jpg" alt="Video Demo">
+  </a>
+</p>
 
 **GeekWord** is an innovative system designed to streamline the experience of accessing GeeksforGeeks articles. As a passionate writer and contributor to the GeeksforGeeks platform, I recognized the need for a more efficient way to share my articles with viewers. The existing process often involved cumbersome authentication prompts and hindered seamless access to valuable content.
 
