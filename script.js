@@ -1,4 +1,4 @@
-const apiUrl = 'https://script.google.com/macros/s/AKfycbzqgvh8Vgm8z9wGP2V5-tSfRY7er4gNPDAiB_l3eAOYYfHkbgb5MdxhA1EKbMyEVayE9A/exec';
+const apiUrl = 'https://gfgarticleapi.azurewebsites.net/article'; // Replace 'https://your-new-api-url.com' with your actual API URL
 
 async function fetchData() {
     try {
@@ -65,5 +65,46 @@ function animateCount(element, count) {
     }, 10);
 }
 
+function autoScrollArticlesContainer() {
+    const articlesContainer = document.getElementById('articles-container');
+    const scrollSpeed = 1; // Adjust scroll speed as needed
+
+    const scrollInterval = setInterval(() => {
+        articlesContainer.scrollTop += scrollSpeed;
+    }, 50); // Adjust scroll interval as needed
+
+    // Stop scrolling when reaching the bottom of the container
+    articlesContainer.addEventListener('scroll', () => {
+        if (articlesContainer.scrollHeight - articlesContainer.scrollTop === articlesContainer.clientHeight) {
+            clearInterval(scrollInterval);
+        }
+    });
+}
+
+const visitorApiUrl = 'https://geekwordsvisitorcounter.azurewebsites.net/totalgeekwordsviews?id=visitor_count'; // Replace with your actual visitor API URL
+
+async function fetchVisitorCount() {
+    try {
+        const response = await fetch(visitorApiUrl);
+        const data = await response.json();
+        return data.visitor_count;
+    } catch (error) {
+        console.error('Error fetching visitor count:', error);
+        return null;
+    }
+}
+
+async function renderVisitorCount() {
+    const visitorCount = await fetchVisitorCount();
+    if (visitorCount === null) return;
+
+    const visitorCountElement = document.getElementById('visitor-count');
+    visitorCountElement.textContent = visitorCount;
+}
+
+// Call renderVisitorCount initially and then refresh every 
 renderData();
+renderVisitorCount();
 setInterval(renderData, 60000);
+setInterval(renderVisitorCount, 60000);
+
