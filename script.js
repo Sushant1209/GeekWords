@@ -1,4 +1,5 @@
-const apiUrl = 'https://script.google.com/macros/s/AKfycbzqgvh8Vgm8z9wGP2V5-tSfRY7er4gNPDAiB_l3eAOYYfHkbgb5MdxhA1EKbMyEVayE9A/exec';
+
+const apiUrl = 'https://gfgarticleapi.azurewebsites.net/article'; // Replace 'https://your-new-api-url.com' with your actual API URL
 
 async function fetchData() {
     try {
@@ -13,12 +14,12 @@ async function fetchData() {
 
 async function renderData() {
     const jsonData = await fetchData();
-    if (!jsonData || !jsonData.data) return;
+    if (!jsonData) return;
 
     const articlesContainer = document.getElementById('articles-container');
     articlesContainer.innerHTML = '';
 
-    jsonData.data.forEach((item, index) => {
+    jsonData.forEach((item, index) => {
         const section = document.createElement('div');
         section.classList.add('section');
         section.innerHTML = `
@@ -34,9 +35,9 @@ async function renderData() {
     note.textContent = '*Stay tuned for even more insightful articles! New additions will automatically appear at the top of this section...*';
     articlesContainer.appendChild(note);
 
-    const totalCount = jsonData.data.length;
-    const authorCount = jsonData.data.filter(item => item.Article_Type === 'Author').length;
-    const improvementCount = jsonData.data.filter(item => item.Article_Type === 'Added Improvement in existing Article').length;
+    const totalCount = jsonData.length;
+    const authorCount = jsonData.filter(item => item.Article_Type === 'Author').length;
+    const improvementCount = jsonData.filter(item => item.Article_Type === 'Added Improvement in existing Article').length;
 
     const totalSpan = document.getElementById('total-count');
     const authorSpan = document.getElementById('author-count');
@@ -45,6 +46,9 @@ async function renderData() {
     animateCount(totalSpan, totalCount);
     animateCount(authorSpan, authorCount);
     animateCount(improvementSpan, improvementCount);
+    
+    // Automatically scroll articles-container
+    autoScrollArticlesContainer();
 }
 
 function animateCount(element, count) {
@@ -61,6 +65,53 @@ function animateCount(element, count) {
         element.textContent = currentCount;
     }, 10);
 }
+
+
+
+
+function autoScrollArticlesContainer() {
+    const articlesContainer = document.getElementById('articles-container');
+    const scrollSpeed = 1; // Adjust scroll speed as needed
+
+    const scrollInterval = setInterval(() => {
+        articlesContainer.scrollTop += scrollSpeed;
+    }, 50); // Adjust scroll interval as needed
+
+    // Stop scrolling when reaching the bottom of the container
+    articlesContainer.addEventListener('scroll', () => {
+        if (articlesContainer.scrollHeight - articlesContainer.scrollTop === articlesContainer.clientHeight) {
+            clearInterval(scrollInterval);
+        }
+    });
+}
+
+
+
+const visitorApiUrl = 'https://geekwordsvisitorcounter.azurewebsites.net/totalgeekwordsviews?id=visitor_count'; // Replace with your actual visitor API URL
+
+async function fetchVisitorCount() {
+    try {
+        const response = await fetch(visitorApiUrl);
+        const data = await response.json();
+        return data.visitor_count;
+    } catch (error) {
+        console.error('Error fetching visitor count:', error);
+        return null;
+    }
+}
+
+async function renderVisitorCount() {
+    const visitorCount = await fetchVisitorCount();
+    if (visitorCount === null) return;
+
+    const visitorCountElement = document.getElementById('visitor-count');
+    visitorCountElement.textContent = visitorCount;
+}
+
+// Call renderVisitorCount initially and then refresh every minute
+renderVisitorCount();
+setInterval(renderVisitorCount, 60000);
+
 
 renderData();
 setInterval(renderData, 60000);

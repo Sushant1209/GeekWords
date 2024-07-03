@@ -9,15 +9,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="smoky-background"></div>
 
-    <h1>Welcome to <span style="color: #ff6f61;"><strong>My World</strong></span> of <span style="color: #ffac81;"><strong>Words</strong></span></h1>
+    <h1>Welcome to <span style="color: #ff6f61;"><strong>My World</strong></span> of <span style="color: #d27c51;"><strong>Words</strong></span></h1>
     <div class="content-container">
         <div class="left-container">
             <div class="heading-container">
                 <h2><strong>Published Articles on GeeksForGeeks</strong></h2>
                 <!-- Warning message -->
-                <p class="note">*To read an article, click on "Read more"*</p>
+                <p class="note">*To read an article, click on "<span style="color: #0000FF
+                ;"><strong>Read more</strong></span>"*</p>
             </div>
             <div class="articles-container" id="articles-container">
                 
@@ -25,18 +25,13 @@
         </div>
         <div class="right-container">
             <div class="about-me">
-                <h2><strong>About Me</strong></h2>
-                <p><span style="color: #4682b4;"><strong>Hello everyone,</strong></span> my name is <span style="color: #4682b4;"><strong>Sushant
-                            Bagul.</strong></span></p>
-                <p>I created this website to showcase my <span style="color: #ffac81;"><strong>GeeksForGeeks</strong></span> articles.
-                    Choosing topics on the <span style="color: #ffac81;"><strong>GeeksForGeeks Write Portal</strong></span> can be
-                    challenging, as similar content often already exists. However, I thoroughly research each chosen
-                    topic and frame my articles in my own words.</p>
-                <p>My unique contribution usually includes a video demonstration of a sample project related to the
-                    article’s content. My goal is to empower readers to work on their own ideas and grasp concepts
-                    deeply by referring to both articles and sample projects. Through this process, I’ve learned a lot
-                    myself, and I’m excited to continue expanding my knowledge.</p>
+                <h2 style="color: #000000;"><strong>About Me</strong></h2>
+                <p><span style="color: #4682b4;"><strong>Hello everyone,</strong></span> my name is <span style="color: #4682b4;"><strong>Sushant Bagul.</strong></span></p>
+                <p>I created this website to showcase my <span style="color: #199a20;"><strong>GeeksForGeeks</strong></span> articles. Choosing topics on the <span style="color: #199a20
+                ;"><strong>GeeksForGeeks Write Portal</strong></span> can be challenging, as similar content often already exists. However, I thoroughly research each chosen topic and frame my articles in my own words.</p>
+                <p>My unique contribution usually includes a video demonstration of a sample project related to the article’s content. My goal is to empower readers to work on their own ideas and grasp concepts deeply by referring to both articles and sample projects. Through this process, I’ve learned a lot myself, and I’m excited to continue expanding my knowledge.</p>
             </div>
+            
             <div class="count">
                 <div class="count-heading"><strong>Article Counts</strong></div>
                 <div class="clock-container">
@@ -52,8 +47,13 @@
                         <i class="far fa-clock"></i><span id="improvement-count"></span>
                         <p>Improvement Count</p>
                     </div>
+                    <div class="clock-item">
+                        <i class="far fa-clock"></i><span id="visitor-count"></span>
+                        <p>Total Visitor's</p>
+                    </div>
+                    
                 </div>
-                <p class="count-note"><strong>*Count will be updated automatically according to Articles published.*</strong></p>
+                <p class="count-note"><strong>*Count will be updated automatically according to Articles published and visitor visits.*</strong></p>
             </div>
         </div>
     </div>
