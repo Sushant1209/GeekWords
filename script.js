@@ -104,4 +104,6 @@ async function renderVisitorCount() {
 
 // Call renderVisitorCount initially and then refresh every 
 renderData();
+renderVisitorCount();
 setInterval(renderData, 60000);
+setInterval(renderVisitorCount, 60000);
