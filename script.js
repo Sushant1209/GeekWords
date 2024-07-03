@@ -1,8 +1,5 @@
-require('dotenv').config();
+const apiUrl = 'https://gfgarticleapi.azurewebsites.net/article'; // Replace 'https://your-new-api-url.com' with your actual API URL
 
-
-const apiUrl = process.env.API_URL
-const visitorApiUrl = process.env.VISITOR_API_URL
 async function fetchData() {
     try {
         const response = await fetch(apiUrl);
@@ -84,6 +81,7 @@ function autoScrollArticlesContainer() {
     });
 }
 
+const visitorApiUrl = 'https://geekwordsvisitorcounter.azurewebsites.net/totalgeekwordsviews?id=visitor_count'; // Replace with your actual visitor API URL
 
 async function fetchVisitorCount() {
     try {
@@ -106,7 +104,4 @@ async function renderVisitorCount() {
 
 // Call renderVisitorCount initially and then refresh every 
 renderData();
-renderVisitorCount();
 setInterval(renderData, 60000);
-setInterval(renderVisitorCount, 60000);
-
