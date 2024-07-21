@@ -1,3 +1,5 @@
+/* styles.css */
+
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
 
 body {
@@ -166,14 +168,13 @@ h1 {
 
 a {
     text-decoration: none;
-    color: #0000FF; /* This is the hexadecimal color code for blue */
+    color: #0000FF;
     transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #0000A0; /* This is a darker blue for when the mouse hovers over the link */
+    color: #0000A0;
 }
-
 
 .content {
     text-align: center;
@@ -203,25 +204,120 @@ p {
     height: fit-content;
 }
 
-
 /* Updated styles for responsiveness */
 @media only screen and (max-width: 600px) {
     body {
         margin: 0;
-        /* Adjusted margin */
     }
 
     .content-container {
         flex-direction: column;
         margin: 0;
-        /* Adjusted margin */
     }
 
     .left-container,
     .right-container {
         width: 100%;
         padding: 10px;
-        /* Added padding for better spacing */
+    }
+
+    .heading-container,
+    .about-me,
+    .count,
+    .articles-container {
+        margin: 10px 0;
+    }
+
+    .count-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .clock-container {
+        flex-direction: column;
+    }
+
+    .clock-item {
+        margin-bottom: 10px;
     }
 }
 
+/* Skeleton loader styles */
+.skeleton-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 9999;
+}
+
+.skeleton-header {
+    width: 80%;
+    height: 50px;
+    background: #e0e0e0;
+    margin: 20px 0;
+}
+
+.skeleton-content-container {
+    display: flex;
+    width: 80%;
+    height: 80%;
+}
+
+.skeleton-left-container,
+.skeleton-right-container {
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.skeleton-heading {
+    width: 60%;
+    height: 30px;
+    background: #e0e0e0;
+    margin-bottom: 10px;
+}
+
+.skeleton-paragraph {
+    width: 100%;
+    height: 20px;
+    background: #e0e0e0;
+    margin-bottom: 10px;
+}
+
+.skeleton-articles-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.skeleton-article {
+    width: 100%;
+    height: 40px;
+    background: #e0e0e0;
+}
+
+.skeleton-about-me {
+    width: 100%;
+    height: 150px;
+    background: #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.skeleton-count {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.skeleton-count-item {
+    width: 100%;
+    height: 30px;
+    background: #e0e0e0;
+}
