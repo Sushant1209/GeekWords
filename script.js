@@ -1,10 +1,11 @@
-const apiUrl = 'https://gfgarticleapi.azurewebsites.net/article'; // Replace 'https://your-new-api-url.com' with your actual API URL
+const apiUrl = 'https://fetchgfgarticlesapi.azurewebsites.net/gfgarticles';
+const visitorApiUrl = 'https://geekwordsvisitorcounter.azurewebsites.net/totalgeekwordsviews?id=visitor_count';
 
 async function fetchData() {
     try {
         const response = await fetch(apiUrl);
         const data = await response.json();
-        return data;
+        return data[0]; // The API now returns an array with a single object
     } catch (error) {
         console.error('Error fetching data:', error);
         return null;
@@ -13,18 +14,34 @@ async function fetchData() {
 
 async function renderData() {
     const jsonData = await fetchData();
-    if (!jsonData) return;
+    if (!jsonData) {
+        showError();
+        return;
+    }
 
     const articlesContainer = document.getElementById('articles-container');
     articlesContainer.innerHTML = '';
 
-    jsonData.forEach((item, index) => {
+    // Render articles
+    jsonData.articles.forEach((item) => {
         const section = document.createElement('div');
         section.classList.add('section');
         section.innerHTML = `
-            <h2>${item.Title}</h2>
-            <p>${item.Article_Type} | Tags: ${item.Tags}</p>
-            <a href="${item.Link}" target="_blank">Read more</a>
+            <h2>${item.name}</h2>
+            <p>Author | Tags: ${item.tags}</p>
+            <a href="${item.link}" target="_blank">Read more</a>
+        `;
+        articlesContainer.appendChild(section);
+    });
+
+    // Render improvements
+    jsonData.improvements.forEach((item) => {
+        const section = document.createElement('div');
+        section.classList.add('section');
+        section.innerHTML = `
+            <h2>${item.name}</h2>
+            <p>Added Improvement in existing Article | Tags: ${item.tags}</p>
+            <a href="${item.link}" target="_blank">Read more</a>
         `;
         articlesContainer.appendChild(section);
     });
@@ -34,9 +51,9 @@ async function renderData() {
     note.textContent = '*Stay tuned for even more insightful articles! New additions will automatically appear at the top of this section...*';
     articlesContainer.appendChild(note);
 
-    const totalCount = jsonData.length;
-    const authorCount = jsonData.filter(item => item.Article_Type === 'Author').length;
-    const improvementCount = jsonData.filter(item => item.Article_Type === 'Added Improvement in existing Article').length;
+    const totalCount = jsonData.articles.length + jsonData.improvements.length;
+    const authorCount = jsonData.articles.length;
+    const improvementCount = jsonData.improvements.length;
 
     const totalSpan = document.getElementById('total-count');
     const authorSpan = document.getElementById('author-count');
@@ -45,9 +62,20 @@ async function renderData() {
     animateCount(totalSpan, totalCount);
     animateCount(authorSpan, authorCount);
     animateCount(improvementSpan, improvementCount);
-    
+
     // Automatically scroll articles-container
     autoScrollArticlesContainer();
+
+    // Hide skeleton loader and show content
+    document.getElementById('skeleton-loader').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+}
+
+// The rest of the functions remain the same
+function showError() {
+    document.getElementById('skeleton-loader').style.display = 'none';
+    document.getElementById('content').innerHTML = '<p>Error loading data. Please try again later.</p>';
+    document.getElementById('content').style.display = 'block';
 }
 
 function animateCount(element, count) {
@@ -81,8 +109,6 @@ function autoScrollArticlesContainer() {
     });
 }
 
-const visitorApiUrl = 'https://geekwordsvisitorcounter.azurewebsites.net/totalgeekwordsviews?id=visitor_count'; // Replace with your actual visitor API URL
-
 async function fetchVisitorCount() {
     try {
         const response = await fetch(visitorApiUrl);
@@ -102,8 +128,11 @@ async function renderVisitorCount() {
     visitorCountElement.textContent = visitorCount;
 }
 
-// Call renderVisitorCount initially and then refresh every 
-renderData();
-renderVisitorCount();
-setInterval(renderData, 60000);
-setInterval(renderVisitorCount, 60000);
+async function init() {
+    await renderData();
+    await renderVisitorCount();
+    setInterval(renderData, 60000);
+    setInterval(renderVisitorCount, 60000);
+}
+
+window.addEventListener('load', init);
