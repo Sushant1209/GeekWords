@@ -12,6 +12,13 @@
 
 In response, I embarked on the development of **GeekWord**, a comprehensive solution that not only simplifies article tracking but also enhances accessibility for readers. Leveraging a combination of cutting-edge technologies, I aimed to create a user-friendly experience that eliminates barriers and promotes knowledge sharing.
 
+## **Data Flow Diagram**
+
+<p align="center">
+  <img src="Images/dataflow-diagram.png" alt="Data Flow Diagram">
+</p>
+
+
 ## **Key Objectives**
 
 1. **Automated Article Tracking:**
