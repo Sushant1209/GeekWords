@@ -48,7 +48,7 @@ In response, I embarked on the development of **GeekWord**, a comprehensive solu
    - To enhance usability, I built a custom API within **GeekWord**. This API allows users to retrieve article data programmatically, whether for personal use or integration into other platforms.
 
 4. **Improved Performance:**
-   - By migrating from Google Sheets to MongoDB Atlas, I significantly reduced the website’s load time from 10-15 seconds to a more acceptable range."
+   - By migrating from Google Sheets to MongoDB Atlas, and subsequently from MongoDB Atlas to Azure Cosmos DB, I significantly reduced the website’s load time from 10-15 seconds to a more acceptable range.
 
 ## **Conclusion**
 
