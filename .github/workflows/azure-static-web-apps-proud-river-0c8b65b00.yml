@@ -27,6 +27,13 @@ jobs:
           echo "  VISITOR_API_URL: '__VISITOR_API_URL__'" >> config.js
           echo "};" >> config.js
 
+      - name: Debug - Print Secrets and Variables
+        run: |
+          echo "API_URL from Secrets: ${{ secrets.API_URL }}"
+          echo "API_URL from Vars: ${{ vars.API_URL }}"
+          echo "VISITOR_API_URL from Secrets: ${{ secrets.VISITOR_API_URL }}"
+          echo "VISITOR_API_URL from Vars: ${{ vars.VISITOR_API_URL }}"
+
       - name: Replace API URLs
         run: |
           sed -i 's|__API_URL__|'"${API_URL:-${{ secrets.API_URL }}}"'|g' config.js
