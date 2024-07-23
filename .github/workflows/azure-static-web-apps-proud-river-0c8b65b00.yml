@@ -1,4 +1,4 @@
-name: Azure Static Web Apps CI/CD
+name: Deploy to Cloudflare Pages
 
 on:
   push:
@@ -41,19 +41,18 @@ jobs:
           echo "Config file contents:"
           cat config.js
         env:
-          API_URL: ${{ vars.API_URL }}
-          VISITOR_API_URL: ${{ vars.VISITOR_API_URL }}
+          API_URL: ${{ secrets.API_URL }}
+          VISITOR_API_URL: ${{ secrets.VISITOR_API_URL }}
 
-      - name: Build And Deploy
-        id: builddeploy
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PROUD_RIVER_0C8B65B00 }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          action: "upload"
-          app_location: "/" 
-          api_location: "" 
-          output_location: "/"
+      - name: Install Dependencies and Build
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy to Cloudflare Pages
+        run: npx wrangler pages publish ./dist --project-name=geekwords --branch=master
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -66,3 +65,75 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PROUD_RIVER_0C8B65B00 }}
           action: "close"
+
+
+
+
+# name: Azure Static Web Apps CI/CD
+
+# on:
+#   push:
+#     branches:
+#       - master
+#   pull_request:
+#     types: [opened, synchronize, reopened, closed]
+#     branches:
+#       - master
+
+# jobs:
+#   build_and_deploy_job:
+#     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+#     runs-on: ubuntu-latest
+#     name: Build and Deploy Job
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           submodules: true
+#           lfs: false
+
+#       - name: Create config.js
+#         run: |
+#           echo "window.config = {" > config.js
+#           echo "  API_URL: '__API_URL__'," >> config.js
+#           echo "  VISITOR_API_URL: '__VISITOR_API_URL__'" >> config.js
+#           echo "};" >> config.js
+
+#       - name: Debug - Print Secrets and Variables
+#         run: |
+#           echo "API_URL from Secrets: ${{ secrets.API_URL }}"
+#           echo "API_URL from Vars: ${{ vars.API_URL }}"
+#           echo "VISITOR_API_URL from Secrets: ${{ secrets.VISITOR_API_URL }}"
+#           echo "VISITOR_API_URL from Vars: ${{ vars.VISITOR_API_URL }}"
+
+#       - name: Replace API URLs
+#         run: |
+#           sed -i 's|__API_URL__|'"${API_URL:-${{ secrets.API_URL }}}"'|g' config.js
+#           sed -i 's|__VISITOR_API_URL__|'"${VISITOR_API_URL:-${{ secrets.VISITOR_API_URL }}}"'|g' config.js
+#           echo "Config file contents:"
+#           cat config.js
+#         env:
+#           API_URL: ${{ vars.API_URL }}
+#           VISITOR_API_URL: ${{ vars.VISITOR_API_URL }}
+
+#       - name: Build And Deploy
+#         id: builddeploy
+#         uses: Azure/static-web-apps-deploy@v1
+#         with:
+#           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PROUD_RIVER_0C8B65B00 }}
+#           repo_token: ${{ secrets.GITHUB_TOKEN }}
+#           action: "upload"
+#           app_location: "/" 
+#           api_location: "" 
+#           output_location: "/"
+
+#   close_pull_request_job:
+#     if: github.event_name == 'pull_request' && github.event.action == 'closed'
+#     runs-on: ubuntu-latest
+#     name: Close Pull Request Job
+#     steps:
+#       - name: Close Pull Request
+#         id: closepullrequest
+#         uses: Azure/static-web-apps-deploy@v1
+#         with:
+#           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PROUD_RIVER_0C8B65B00 }}
+#           action: "close"
