@@ -29,11 +29,11 @@ jobs:
 
       - name: Replace API URLs
         run: |
-          sed -i 's|__API_URL__|${{ secrets.API_URL }}|g' config.js
-          sed -i 's|__VISITOR_API_URL__|${{ secrets.VISITOR_API_URL }}|g' config.js
+          sed -i 's|__API_URL__|'"${API_URL:-${{ secrets.API_URL }}}"'|g' config.js
+          sed -i 's|__VISITOR_API_URL__|'"${VISITOR_API_URL:-${{ secrets.VISITOR_API_URL }}}"'|g' config.js
         env:
-          API_URL: ${{ secrets.API_URL }}
-          VISITOR_API_URL: ${{ secrets.VISITOR_API_URL }}
+          API_URL: ${{ vars.API_URL }}
+          VISITOR_API_URL: ${{ vars.VISITOR_API_URL }}
 
       - name: Build And Deploy
         id: builddeploy
