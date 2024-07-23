@@ -31,7 +31,7 @@ In response, I embarked on the development of **GeekWord**, a comprehensive solu
    - To achieve these objectives, I harnessed a powerful stack of technologies:
      - **Python:** The backbone of the system, Python enables efficient web scraping and data manipulation.
      - **Selenium:** Used for automated interaction with the GeeksforGeeks website, including login procedures.
-     - **MongoDB Atlas:** A central repository for storing article metadata and tracking changes, replacing Google Sheets for better performance.
+     - **Azure Cosmos DB:** A central repository for storing article metadata and tracking changes, replacing Google Sheets and MongoDB Atlas for better performance.
      - **Spring Boot:** Designed a Spring Boot API to fetch data from MongoDB Atlas, hosted on Azure.
      - **HTML, CSS, and JavaScript:** These front-end technologies ensure a user-friendly interface.
      - **Azure:** The cloud platform for deployment and scalability.
