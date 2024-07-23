@@ -1,5 +1,5 @@
-const apiUrl = 'https://fetchgfgarticlesapi.azurewebsites.net/gfgarticles';
-const visitorApiUrl = 'https://geekwordsvisitorcounter.azurewebsites.net/totalgeekwordsviews?id=visitor_count';
+const apiUrl = window.config.API_URL;
+const visitorApiUrl = window.config.VISITOR_API_URL;
 
 async function fetchData() {
     try {

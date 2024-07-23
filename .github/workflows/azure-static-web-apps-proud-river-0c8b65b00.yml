@@ -19,6 +19,22 @@ jobs:
         with:
           submodules: true
           lfs: false
+
+      - name: Create config.js
+        run: |
+          echo "window.config = {" > config.js
+          echo "  API_URL: '__API_URL__'," >> config.js
+          echo "  VISITOR_API_URL: '__VISITOR_API_URL__'" >> config.js
+          echo "};" >> config.js
+
+      - name: Replace API URLs
+        run: |
+          sed -i 's|__API_URL__|${{ secrets.API_URL }}|g' config.js
+          sed -i 's|__VISITOR_API_URL__|${{ secrets.VISITOR_API_URL }}|g' config.js
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          VISITOR_API_URL: ${{ secrets.VISITOR_API_URL }}
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1

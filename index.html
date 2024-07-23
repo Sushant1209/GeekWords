@@ -80,6 +80,14 @@
         </div>
     </div>
 
+    <script>
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+          document.write('<script src="config.local.js"><\/script>');
+        } else {
+          document.write('<script src="config.js"><\/script>');
+        }
+    </script>
     <script src="script.js"></script>
+    
 </body>
 </html>
